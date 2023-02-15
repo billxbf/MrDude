@@ -40,8 +40,8 @@ _, col1, _, col2 = st.columns([1,3,1,2])
 ## Sidebar Options
 st.sidebar.title("MrDude Options")
 character_input = st.sidebar.text_input("Describe your Dude", value='helpful, creative, clever, and very friendly')
-os.environ['OPENAI_API_KEY'] = st.sidebar.text_input("OpenAI API Key", value= "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",type="password")
-os.environ['ELEVENLABS_API_KEY'] = st.sidebar.text_input("ElevenLabs API Key", value="cf9348f2189c5fefaa0b2dc9779aa561", type="password")
+os.environ['OPENAI_API_KEY'] = st.sidebar.text_input("OpenAI API Key", value= "",type="password")
+os.environ['ELEVENLABS_API_KEY'] = st.sidebar.text_input("ElevenLabs API Key", value="", type="password")
 submit = st.sidebar.button("Start Chat", key="start_chat")
 if submit:
     os.environ["SESSION_STARTED"] = "1"
@@ -82,14 +82,13 @@ if os.environ["SESSION_STARTED"] == "1":
 
 
     inputbox = col1.empty()
-    while True:
-        prompt = inputbox.text_input("press Enter to send message", key="chat")
-        if prompt:
-            col2.write("You: " + prompt + "\n")
-            response = openai.getResponse(prompt)
-            playResponseAudio(response)
-            col2.write("MrDude: " + response + "\n")
-        inputbox.empty()
+    prompt = inputbox.text_input("press Enter to send message", key="chat")
+    if prompt:
+        col2.write("You: " + prompt + "\n")
+        response = openai.getResponse(prompt)
+        playResponseAudio(response)
+        col2.write("MrDude: " + response + "\n")
+    inputbox.empty()
 
 
 
